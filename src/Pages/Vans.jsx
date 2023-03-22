@@ -11,7 +11,7 @@ const Vans = () => {
 
   const vanElements = vans.map((van) => (
     <div key={van.id} className="van-tile">
-      <Link to={`./${van.name.replace(/ /g, "-")}`}>
+      <Link to={`./${van.name.replace(/ /g, "-").toLowerCase()}`}>
         <img src={van.imageUrl} />
         <div className="van-info">
           <h3>{van.name}</h3>

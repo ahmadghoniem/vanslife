@@ -8,7 +8,7 @@ const VanDetail = () => {
     fetch(`/api/vans/${params.name}`)
       .then((res) => res.json())
       .then((data) => {
-        setVanDetail(data.vans);
+        setVanDetail(data.vans[0]);
       });
   }, [params.name]);
   return (

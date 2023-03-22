@@ -80,11 +80,18 @@ createServer({
       return schema.vans.find(id);
     });
 
-    this.get("/vans/:name", (schema, request) => {
+    /*     this.get("/vans/:name", (schema, request) => {
       let name = request.params.name;
       name = name.replace(/-/g, " ");
       console.log(schema.vans);
       return schema.vans.findBy({ name });
+    }); */
+    this.get("/vans/:name", (schema, request) => {
+      let name = request.params.name;
+      name = name.replace(/-/g, " ");
+      return schema.vans.where(
+        (van) => van.name.toLowerCase() === name.toLowerCase()
+      );
     });
   },
 });
