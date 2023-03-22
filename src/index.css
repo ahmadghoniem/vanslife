@@ -299,3 +299,20 @@ footer span {
 section {
   margin-block: 25px;
 }
+
+.host-nav {
+  display: flex;
+  gap: 29px;
+  margin-inline: 26px;
+  font-size: 18px;
+}
+.host-nav a {
+  color: #4d4d4d;
+  font-weight: 700;
+  text-decoration: none;
+}
+.host-nav a:hover {
+  color: #161616;
+  font-weight: 700;
+  text-decoration-line: underline;
+}

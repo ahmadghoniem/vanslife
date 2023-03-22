@@ -6,8 +6,9 @@ const Header = () => {
         #VANLIFE
       </Link>
       <nav>
-        <Link to="/vans">Vans</Link>
+        <Link to="/Host">Host</Link>
         <Link to="/about">about</Link>
+        <Link to="/vans">Vans</Link>
       </nav>
     </header>
   );

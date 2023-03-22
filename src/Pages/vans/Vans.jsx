@@ -9,18 +9,18 @@ const Vans = () => {
       .then((data) => setVans(data.vans));
   }, []);
 
-  const vanElements = vans.map((van) => (
-    <div key={van.id} className="van-tile">
-      <Link to={`./${van.name.replace(/ /g, "-").toLowerCase()}`}>
-        <img src={van.imageUrl} />
+  const vanElements = vans.map(({ id, name, imageUrl, price, type }) => (
+    <div key={id} className="van-tile">
+      <Link to={`./${name.replace(/ /g, "-").toLowerCase()}`}>
+        <img src={imageUrl} />
         <div className="van-info">
-          <h3>{van.name}</h3>
+          <h3>{name}</h3>
           <p>
-            ${van.price}
+            ${price}
             <span>/day</span>
           </p>
         </div>
-        <i className={`van-type ${van.type} selected`}>{van.type}</i>
+        <i className={`van-type ${type} selected`}>{type}</i>
       </Link>
     </div>
   ));

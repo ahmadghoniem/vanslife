@@ -74,18 +74,19 @@ createServer({
     this.get("/vans", (schema, request) => {
       return schema.vans.all();
     });
-
+    /*
     this.get("/vans/:id", (schema, request) => {
       const id = request.params.id;
       return schema.vans.find(id);
     });
 
-    /*     this.get("/vans/:name", (schema, request) => {
+         this.get("/vans/:name", (schema, request) => {
       let name = request.params.name;
       name = name.replace(/-/g, " ");
       console.log(schema.vans);
       return schema.vans.findBy({ name });
     }); */
+
     this.get("/vans/:name", (schema, request) => {
       let name = request.params.name;
       name = name.replace(/-/g, " ");
