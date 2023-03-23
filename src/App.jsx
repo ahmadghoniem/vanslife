@@ -18,8 +18,16 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="vans" element={<Vans />} />
-          <Route path="vans/:name" element={<VanDetail />} />
+          {/**because there's no shared UI between the Van and the VanDetail components
+           * there's no need to add an element prop with a layout component to the parent Route to be able to display the child components
+           * when they match their urls
+           * so you can just have the path prop and the child Routes relative to the parent path
+           * and because there's no shared UI it's not really recommended to nest the Routes
+           */}
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":name" element={<VanDetail />} />
+          </Route>
 
           <Route path="Host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
