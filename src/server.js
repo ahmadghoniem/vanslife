@@ -86,6 +86,7 @@ createServer({
       console.log(schema.vans);
       return schema.vans.findBy({ name });
     }); */
+    //"vans-name-1223".slice("vans-name-1223".lastIndexOf('-')+1)
 
     this.get("/vans/:name", (schema, request) => {
       let name = request.params.name;

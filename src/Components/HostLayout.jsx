@@ -1,11 +1,13 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 const DashboardLayout = () => {
   return (
     <>
       <nav className="host-nav">
-        <Link to="/Host">Dashboard</Link>
-        <Link to="/Host/Income">Income</Link>
-        <Link to="/Host/Reviews">Reviews</Link>
+        <NavLink end to="/Host">
+          Dashboard
+        </NavLink>
+        <NavLink to="/Host/Income">Income</NavLink>
+        <NavLink to="/Host/Reviews">Reviews</NavLink>
       </nav>
       <Outlet />
     </>

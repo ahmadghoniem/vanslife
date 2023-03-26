@@ -28,7 +28,11 @@ header {
 
   padding-block: 36px;
 }
-
+.header-nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #161616;
+}
 .site-logo {
   text-decoration: none;
   color: black;
@@ -44,7 +48,7 @@ header a {
   font-size: 16px;
   color: #4d4d4d;
 }
-header a:hover {
+header a:hover:not(:first-child) {
   color: #161616;
   text-decoration: underline;
 }
@@ -317,10 +321,13 @@ section {
 }
 .host-nav a:hover {
   color: #161616;
+  text-decoration-line: underline;
+}
+.host-nav a.active {
+  color: #161616;
   font-weight: 700;
   text-decoration-line: underline;
 }
-
 .site-wrapper {
   min-height: 100vh;
   display: flex;
