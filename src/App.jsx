@@ -5,8 +5,9 @@ import Dashboard from "./Pages/host/Dashboard";
 import Income from "./Pages/host/Income";
 import HostVans from "./Pages/host/HostVans";
 import HostVanDetails from "./Pages/host/HostVanDetails";
-import HostVansPricing from "./Pages/host/HostVansPricing";
-import HostVansPhotos from "./Pages/host/HostVansPhotos";
+import HostVanPricing from "./Pages/host/HostVanPricing";
+import HostVanPhotos from "./Pages/host/HostVanPhotos";
+import HostVanInfo from "./Pages/host/HostVanInfo.jsx";
 import Reviews from "./Pages/host/Reviews";
 import Vans from "./Pages/vans/Vans";
 import VanDetail from "./Pages/vans/VanDetail";
@@ -43,8 +44,9 @@ const App = () => {
             <Route path="vans" element={<HostVans />} />
 
             <Route path="vans/:name_id" element={<HostVanDetails />}>
-              <Route path="pricing" element={<HostVansPricing />} />
-              <Route path="photos" element={<HostVansPhotos />} />
+              <Route index element={<HostVanInfo />} />
+              <Route path="pricing" element={<HostVanPricing />} />
+              <Route path="photos" element={<HostVanPhotos />} />
             </Route>
 
             <Route path="Income" element={<Income />} />
