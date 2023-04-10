@@ -18,12 +18,12 @@ const Header = () => {
       <nav className="header-nav">
         <NavLink
           /* style={({ isActive }) => (isActive ? styles : null)} */
-          to="/Host"
+          to="./host"
         >
           Host
         </NavLink>
-        <NavLink to="/about">about</NavLink>
-        <NavLink to="/vans">Vans</NavLink>
+        <NavLink to="./about">about</NavLink>
+        <NavLink to="./vans">Vans</NavLink>
       </nav>
     </header>
   );

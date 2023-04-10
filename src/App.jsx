@@ -3,6 +3,10 @@ import Home from "./Pages/Homepage";
 import About from "./Pages/About";
 import Dashboard from "./Pages/host/Dashboard";
 import Income from "./Pages/host/Income";
+import HostVans from "./Pages/host/HostVans";
+import HostVanDetails from "./Pages/host/HostVanDetails";
+import HostVansPricing from "./Pages/host/HostVansPricing";
+import HostVansPhotos from "./Pages/host/HostVansPhotos";
 import Reviews from "./Pages/host/Reviews";
 import Vans from "./Pages/vans/Vans";
 import VanDetail from "./Pages/vans/VanDetail";
@@ -22,15 +26,27 @@ const App = () => {
            * there's no need to add an element prop with a layout component to the parent Route to be able to display the child components
            * when they match their urls
            * so you can just have the path prop and the child Routes relative to the parent path
-           * and because there's no shared UI it's not really recommended to nest the Routes
+           * and because there's no shared UI it's not really recommended to nest the Routes (this goes for hostVans and hostVansDetails aswell)
+           * below is the nested route option
            */}
+
           <Route path="vans">
             <Route index element={<Vans />} />
-            <Route path=":name" element={<VanDetail />} />
+            <Route path=":name_id" element={<VanDetail />} />
           </Route>
+
+          {/* <Route path="Vans" element={<Vans />} />
+            <Route path="Vans/:name_id" element={<VanDetail />} /> */}
 
           <Route path="Host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="vans" element={<HostVans />} />
+
+            <Route path="vans/:name_id" element={<HostVanDetails />}>
+              <Route path="pricing" element={<HostVansPricing />} />
+              <Route path="photos" element={<HostVansPhotos />} />
+            </Route>
+
             <Route path="Income" element={<Income />} />
             <Route path="Reviews" element={<Reviews />} />
           </Route>
