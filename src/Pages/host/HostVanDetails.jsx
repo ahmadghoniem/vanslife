@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useParams, NavLink } from "react-router-dom";
-import placeholder from "../../assets/images/placeholder.png";
+import imgPlaceholder from "../../assets/images/placeholder.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -36,19 +36,16 @@ const HostVanDetails = () => {
       <Link className="back-button" relative="path" to="..">
         {/** by default Links are relative to the parent route Not the path in your browser
          *  if we wan't to back one level into the path we are in and not to the parent router
-         *  we add relative and set it to "path" instead of the default route */}
-        back to all vans
+         *  we add relative and set it to "path" instead of the default route
+         * note: it will go back one level from /vans/modest-explorer-1/pricing to /vans/modest-explorer-1 so a relative path may not be the best solution
+         * you can either use an absolute path to="/host/vans" or use relative="route" with a nested route for the vans
+         *  so it will be the parent instead of host <Route path="vans" element={<HostVans />} ><Route> */}
+        &larr; back to all vans
       </Link>
       <div style={{ backgroundColor: "#fff", padding: "2rem" }}>
         <div className="host-van-detail">
-          {imageUrl ? (
-            <img src={imageUrl} />
-          ) : (
-            <div className="vans-loader-container">
-              <img src={placeholder} />
-              <div className="dot-flashing" style={{ margin: "0 auto" }}></div>
-            </div>
-          )}
+          <img src={imageUrl || imgPlaceholder} />
+
           <div className="host-van-info">
             {type ? (
               <i className={`van-type ${type} selected`}>{type}</i>

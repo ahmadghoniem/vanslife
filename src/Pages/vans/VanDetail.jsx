@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
+import imgPlaceholder from "../../assets/images/placeholder.png";
 const VanDetail = () => {
   const { name_id } = useParams();
+  const location = useLocation();
+  const search = location.state?.search || "";
+  const typeFilter = location.state?.type || "all";
+
   const [vanDetail, setVanDetail] = useState({
     name: "",
     description: "",
@@ -27,42 +31,37 @@ const VanDetail = () => {
         );
       });
   }, [name_id]);
+  console.log(Object.keys(vanDetail));
   const { name, description, price, imageUrl, type } = vanDetail;
   return (
     <section className="van-detail-container">
-      <Link className="back-button" to="..">
-        back to all vans
+      <Link className="back-button" to={`..${search}`}>
+        &larr; back to {typeFilter} vans
       </Link>
       <div className="van-detail">
-        {imageUrl ? (
-          <img src={imageUrl} />
-        ) : (
-          <span className="loader-container">
-            <div className="dot-flashing" style={{ margin: "0 auto" }}></div>
-          </span>
-        )}
+        <img src={imageUrl || imgPlaceholder} />
         {type ? (
           <i className={`van-type ${type} selected`}>{type}</i>
         ) : (
-          <Skeleton width="15%" height="2em" inline={true} />
+          <Skeleton width="15%" height="2em" />
         )}
         <h2>{name || <Skeleton width="30%" />}</h2>
         <span className="van-price">
-          {price ? `$${price}/day` : <Skeleton width="15%" inline={true} />}
+          {price ? `$${price}/day` : <Skeleton width="15%" />}
         </span>
         <p>
           {description || (
             <>
-              <Skeleton height="1em" width={"100%"} inline={true} />
-              <Skeleton height="1em" width={"80%"} inline={true} />
-              <Skeleton height="1em" width={"90%"} inline={true} />
+              <Skeleton height="1em" width={"100%"} />
+              <Skeleton height="1em" width={"80%"} />
+              <Skeleton height="1em" width={"90%"} />
             </>
           )}
         </p>
-        {Object.keys(vanDetail).length > 0 ? (
+        {name ? (
           <button className="link-button">Rent this van</button>
         ) : (
-          <Skeleton height="2.5em" width="100%" style={{ margin: "0 auto" }} />
+          <Skeleton height="2.5em" width="100%" />
         )}
       </div>
     </section>

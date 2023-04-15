@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import placeholder from "../../assets/images/placeholder.png";
+import imgPlaceholder from "../../assets/images/placeholder.png";
 import "react-loading-skeleton/dist/skeleton.css";
 const Vans = () => {
   const [vans, setVans] = useState([
@@ -24,14 +24,8 @@ const Vans = () => {
   const vanElements = vans.map(({ id, name, imageUrl, price }, index) => (
     <div key={id || index} className="host-van-tile">
       <Link to={`./${name.replace(/ /g, "-").toLowerCase()}-${id}`}>
-        {imageUrl ? (
-          <img src={imageUrl} />
-        ) : (
-          <div className="vans-loader-container">
-            <img src={placeholder} />
-            <div className="dot-flashing" style={{ margin: "0 auto" }}></div>
-          </div>
-        )}
+        <img src={imageUrl || imgPlaceholder} />
+
         <div className="van-info">
           <h2>{name || <Skeleton height="1.25em" width="30%" />}</h2>
           <p className="van-price">

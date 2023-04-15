@@ -23,10 +23,14 @@ a {
 header {
   display: flex;
   align-items: center;
+  padding-block: 2em;
+  position: sticky;
+  top: 0;
   justify-content: space-around;
   background-color: #fff7ed;
-
-  padding-block: 36px;
+  transition-property: transform;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
 }
 .header-nav a.active {
   font-weight: bold;
@@ -149,6 +153,15 @@ header a:hover:not(:first-child) {
   border-radius: 10px;
 }
 /**** VANS PAGE *****/
+
+.van-list-filter-buttons {
+  display: flex;
+}
+
+.van-list-filter-buttons > a {
+  margin-right: 1rem;
+}
+
 .van-list-container {
 }
 
@@ -423,6 +436,25 @@ i[class*="van-type-"] {
 .host-van-tile a .vans-loader-container img {
   height: auto;
   border-radius: 5px;
+}
+/***** NOT FOUND 404 *****/
+
+.not-found {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  flex-direction: column;
+}
+.not-found h1,
+.not-found p {
+  margin-block: 0.3rem;
+}
+.not-found p a {
+  text-decoration: underline;
+}
+.not-found img {
+  border: solid 0.5rem #fff;
+  border-radius: 0.5rem;
 }
 /***** FOOTER *****/
 

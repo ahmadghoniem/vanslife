@@ -1,7 +1,7 @@
 import { Outlet, NavLink } from "react-router-dom";
 const DashboardLayout = () => {
   return (
-    <>
+    <div>
       <nav className="host-nav">
         <NavLink end to=".">
           Dashboard
@@ -11,7 +11,7 @@ const DashboardLayout = () => {
         <NavLink to="./reviews">Reviews</NavLink>
       </nav>
       <Outlet />
-    </>
+    </div>
   );
 };
 export default DashboardLayout;

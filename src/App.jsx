@@ -12,10 +12,14 @@ import Reviews from "./Pages/host/Reviews";
 import Vans from "./Pages/vans/Vans";
 import VanDetail from "./Pages/vans/VanDetail";
 import HostLayout from "./Components/HostLayout";
-import "./server";
-import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
-import Layout from "./Components/Layout";
+import NotFound from "./Components/NotFound";
 
+import "./server";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Layout from "./Components/Layout";
+{
+  /** a <Link> renders an accessible <a> element that doesn't reload the page with a real href that points to the resource it's linking to.  */
+}
 const App = () => {
   return (
     <BrowserRouter>
@@ -52,6 +56,7 @@ const App = () => {
             <Route path="Income" element={<Income />} />
             <Route path="Reviews" element={<Reviews />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
         {/** react router will look at any sections of the path that have a colon before it
          *   and it will add that as the key in the key/value pair in the object that we get from Useparams()  */}
