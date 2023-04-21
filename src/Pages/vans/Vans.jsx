@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import getVans from "../../api";
 import imgPlaceholder from "../../assets/images/placeholder.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
+// data fetching is now outside of our component and react router (through passing the loader function to the router prop)
+// will delay rendering the component that's being passed to the element prop till the data is fetched from the api
+export function loader() {
+  return getVans();
+}
+
 const Vans = () => {
-  const [vans, setVans] = useState(
-    Array(2).fill({
-      id: "",
-      name: "",
-      imageUrl: "",
-      price: "",
-      type: "",
-    })
-  );
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
-
+  const vans = useLoaderData();
   function handleFilterChange(key, value) {
     setSearchParams((prevParams) => {
       if (value === null) prevParams.delete(key);
@@ -27,7 +23,7 @@ const Vans = () => {
     });
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     async function loadVans() {
       setLoading(true);
       try {
@@ -42,10 +38,10 @@ const Vans = () => {
     }
 
     loadVans();
-  }, []);
-  if (error) {
+  }, []); */
+  /*   if (error) {
     return <h1>There was an error:{error.msg} </h1>;
-  }
+  } */
   const displayedVans = typeFilter
     ? vans.filter(({ type }) => type.toLowerCase() === typeFilter.toLowerCase())
     : vans;
