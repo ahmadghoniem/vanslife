@@ -1,0 +1,11 @@
+for redirection in react-router-dom
+while at the top of a react component use the useNavigate hook while will allow you to be able to naviagate/redirect 
+inside of a helper function like handleSubmit that's inside of our component
+
+while inside of JSX use the Component <Navigate to />
+A <Navigate> element changes the current location when it is rendered.
+It's a component wrapper around useNavigate, and accepts all the same arguments as props.\
+
+
+while inside of one of react-router-dom data layer api (loader/action) use redirect method 
+

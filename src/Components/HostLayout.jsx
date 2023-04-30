@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from "react-router-dom";
-const DashboardLayout = () => {
+const HostLayout = () => {
   return (
     <div>
       <nav className="host-nav">
@@ -14,4 +14,4 @@ const DashboardLayout = () => {
     </div>
   );
 };
-export default DashboardLayout;
+export default HostLayout;

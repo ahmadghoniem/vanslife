@@ -1,54 +1,109 @@
 import React from "react";
-import Home from "./Pages/Homepage";
-import About from "./Pages/About";
-import Dashboard from "./Pages/host/Dashboard";
-import Income from "./Pages/host/Income";
-import HostVans from "./Pages/host/HostVans";
-import HostVanDetails from "./Pages/host/HostVanDetails";
-import HostVanPricing from "./Pages/host/HostVanPricing";
-import HostVanPhotos from "./Pages/host/HostVanPhotos";
-import HostVanInfo from "./Pages/host/HostVanInfo.jsx";
-import Reviews from "./Pages/host/Reviews";
-import Vans, { loader as vansLoader } from "./Pages/vans/Vans";
-import VanDetail from "./Pages/vans/VanDetail";
-import HostLayout from "./Components/HostLayout";
-import NotFound from "./Components/NotFound";
-import "./server";
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Layout from "./Components/Layout";
 
+// pages
+import Home from "./pages/Homepage";
+import About from "./pages/About";
+// host page
+import {
+  Dashboard,
+  Income,
+  HostVans,
+  HostVanDetail,
+  HostVanPricing,
+  HostVanPhotos,
+  HostVanInfo,
+  Reviews,
+} from "./pages/host";
+// vans page
+import { VanDetail, Login, Vans } from "./pages/vans";
+
+//components
+import { ErrorElement, HostLayout, NotFound, Layout } from "./components";
+
+// utilities
+import requireAuth from "./utils";
+import "./server";
+
+// loaders
+import {
+  vansLoader,
+  VanDetailsLoader,
+  HostVansLoader,
+  HostVanDetailsLoader,
+  loginLoader,
+  defaultLoader,
+} from "./loaders";
+
+//Actions
+import { loginAction } from "./actions/loginAction";
 {
   /**  createBrowserRouter
    * This is the recommended router for all React Router web projects. It uses the DOM History API to update the URL and manage the history stack.
    * It also enables the v6.4 data APIs like loaders, actions, fetchers and more.
-   * also a <Link> renders an accessible <a> element that doesn't reload the page with a real href that points to the resource it's linking to. */
+   * also a <Link> renders an accessible <a> element that doesn't reload the page with a real href that points to the resource it's linking to.
+   * using loaders with protected routes you would need to redirect the user in every loader not only the parent loader
+   * because they run asynchronously parallel to each other and one may return that the user for example not logged in
+   * before the other therefor you will to need to use it in every loader */
 }
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route index element={<Home />} />
-      <Route path="about" element={<About />} />
+    <Route path="/" Component={Layout}>
+      <Route index Component={Home} />
+      <Route
+        path="login"
+        Component={Login}
+        loader={loginLoader}
+        action={loginAction}
+      />
+      <Route path="about" Component={About} />
       <Route path="vans">
-        <Route index element={<Vans />} loader={vansLoader} />
-        <Route path=":name_id" element={<VanDetail />} />
+        <Route
+          index
+          Component={Vans}
+          ErrorBoundary={ErrorElement}
+          // this ErrorBoundary shall be rendered instead of the actual vans element
+          // if any problem occured in rendering the vans element or with the loader
+          loader={vansLoader}
+        />
+        <Route
+          loader={VanDetailsLoader}
+          path=":name_id"
+          Component={VanDetail}
+        />
       </Route>
-      <Route path="Host" element={<HostLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="vans" element={<HostVans />} />
-        <Route path="vans/:name_id" element={<HostVanDetails />}>
-          <Route index element={<HostVanInfo />} />
-          <Route path="pricing" element={<HostVanPricing />} />
-          <Route path="photos" element={<HostVanPhotos />} />
+      <Route path="Host" loader={defaultLoader} Component={HostLayout}>
+        <Route index loader={defaultLoader} Component={Dashboard} />
+
+        <Route path="vans">
+          <Route index Component={HostVans} loader={HostVansLoader} />
+          <Route
+            path=":name_id"
+            loader={HostVanDetailsLoader}
+            Component={HostVanDetail}
+          >
+            <Route loader={defaultLoader} index Component={HostVanInfo} />
+            <Route
+              loader={defaultLoader}
+              path="pricing"
+              Component={HostVanPricing}
+            />
+            <Route
+              loader={defaultLoader}
+              path="photos"
+              Component={HostVanPhotos}
+            />
+          </Route>
         </Route>
-        <Route path="Income" element={<Income />} />
-        <Route path="Reviews" element={<Reviews />} />
+        <Route loader={defaultLoader} path="Income" Component={Income} />
+        <Route loader={defaultLoader} path="Reviews" Component={Reviews} />
       </Route>
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" Component={NotFound} />
     </Route>
   )
 );
@@ -57,47 +112,3 @@ const App = () => {
 };
 
 export default App;
-
-`
-// this was the previous approach using react-router-dom 
-browserRouter don't support v6.4 data APIs like loaders, actions, fetchers and more.
-<BrowserRouter>
-<Routes>
-  <Route path="/" element={<Layout />}>
-    <Route index element={<Home />} />
-    <Route path="about" element={<About />} />
-    {/**because there's no shared UI between the Van and the VanDetail components
-     * there's no need to add an element prop with a layout component to the parent Route to be able to display the child components
-     * when they match their urls
-     * so you can just have the path prop and the child Routes relative to the parent path
-     * and because there's no shared UI it's not really recommended to nest the Routes (this goes for hostVans and hostVansDetails aswell)
-     * below is the nested route option
-     */}
-
-    <Route path="vans">
-      <Route index element={<Vans />} />
-      <Route path=":name_id" element={<VanDetail />} />
-    </Route>
-
-    {/* <Route path="Vans" element={<Vans />} />
-      <Route path="Vans/:name_id" element={<VanDetail />} /> */}
-
-    <Route path="Host" element={<HostLayout />}>
-      <Route index element={<Dashboard />} />
-      <Route path="vans" element={<HostVans />} />
-
-      <Route path="vans/:name_id" element={<HostVanDetails />}>
-        <Route index element={<HostVanInfo />} />
-        <Route path="pricing" element={<HostVanPricing />} />
-        <Route path="photos" element={<HostVanPhotos />} />
-      </Route>
-
-      <Route path="Income" element={<Income />} />
-      <Route path="Reviews" element={<Reviews />} />
-    </Route>
-    <Route path="*" element={<NotFound />} />
-  </Route>
-  {/** react router will look at any sections of the path that have a colon before it
-   *   and it will add that as the key in the key/value pair in the object that we get from Useparams()  */}
-</Routes>
-</BrowserRouter>`;

@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
-
+import { useLayoutEffect, useRef } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import avatarIcon from "../assets/images/avatar-icon.png";
 const Header = () => {
   const headerRef = useRef(null);
-  useEffect(() => {
+  const navigate = useNavigate();
+  useLayoutEffect(() => {
     let prevScrollPos = window.scrollY;
 
     const handleScroll = () => {
@@ -23,7 +24,10 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const fakeLogOut = () => {
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  };
   /** By default, an active class is added to a <NavLink> component when it is active so you can use CSS to style it.
    * .header-nav a.active {
    * font-weight: bold;
@@ -49,6 +53,10 @@ const Header = () => {
         </NavLink>
         <NavLink to="./about">about</NavLink>
         <NavLink to="./vans">Vans</NavLink>
+        <Link to="login" className="login-link">
+          <img src={avatarIcon} className="login-icon" />
+        </Link>
+        <button onClick={fakeLogOut}>X</button>
       </nav>
     </header>
   );
