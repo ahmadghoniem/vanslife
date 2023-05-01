@@ -43,6 +43,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <h1>Sign in to your account</h1>
+      <p>use email: b@b.com and password: p123</p>
       {message && <h3>{message}</h3>}
       {errorMsg && <h3>{errorMsg}</h3>}
       <Form replace className="login-form" method="post">
