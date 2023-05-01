@@ -7,8 +7,7 @@ import {
 } from "react-router-dom";
 
 // pages
-import About from "./pages/About.jsx";
-import HomePage from "./pages/HomePage.jsx";
+
 // host page
 import {
   Dashboard,
@@ -20,6 +19,8 @@ import {
   HostVanInfo,
   Reviews,
 } from "./pages/host";
+import About from "./pages/About.jsx";
+import HomePage from "./pages/HomePage.jsx";
 // vans page
 import { VanDetail, Login, Vans } from "./pages/vans";
 //components
