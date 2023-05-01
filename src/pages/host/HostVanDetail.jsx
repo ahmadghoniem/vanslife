@@ -1,85 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import {
   Link,
   Outlet,
-  useParams,
   NavLink,
   useLoaderData,
   Await,
+  useAsyncValue,
 } from "react-router-dom";
-import imgPlaceholder from "../../assets/images/placeholder.png";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { HostVansDetailsSkeleton } from "../../skeletonScreens/HostVansDetailsSkeleton";
 
 const HostVanDetails = () => {
   const { hostVanDetailsPromise } = useLoaderData();
+  const RenderHostVanDetails = () => {
+    const { name, price, imageUrl, type } = useAsyncValue();
 
+    return (
+      <div style={{ backgroundColor: "#fff", padding: "2rem" }}>
+        <div className="host-van-detail">
+          <img src={imageUrl} />
+
+          <div className="host-van-info">
+            <i className={`van-type ${type} selected`}>{type}</i>
+
+            <h2>{name}</h2>
+            <span className="van-price">
+              <b>${price}</b>/day
+            </span>
+          </div>
+        </div>
+        <nav className="host-van-detail-nav">
+          <NavLink end to=".">
+            Details
+          </NavLink>
+          <NavLink to="pricing">Pricing</NavLink>
+          <NavLink to="photos">Photos</NavLink>
+        </nav>
+        <Outlet context={{ vanDetail: useAsyncValue() }} />
+      </div>
+    );
+  };
   return (
     <section className="host-van-detail-container">
       <Link className="back-button" to="..">
         &larr; back to all vans
       </Link>
-      <React.Suspense fallback={<h1>loading host van details...</h1>}>
+      <Suspense fallback={<HostVansDetailsSkeleton />}>
         <Await resolve={hostVanDetailsPromise}>
-          {(vanDetail) => {
-            const { name, price, imageUrl, type } = vanDetail[0];
-
-            return (
-              <div style={{ backgroundColor: "#fff", padding: "2rem" }}>
-                <div className="host-van-detail">
-                  <img src={imageUrl || imgPlaceholder} />
-
-                  <div className="host-van-info">
-                    {type ? (
-                      <i className={`van-type ${type} selected`}>{type}</i>
-                    ) : (
-                      <Skeleton width="15%" height="2em" inline={true} />
-                    )}
-                    <h2>{name || <Skeleton width="30%" />}</h2>
-                    <span className="van-price">
-                      {price ? (
-                        <>
-                          <b>${price}</b>/day
-                        </>
-                      ) : (
-                        <Skeleton width="15%" />
-                      )}
-                    </span>
-                  </div>
-                </div>
-                <nav className="host-van-detail-nav">
-                  <NavLink end to=".">
-                    Details
-                  </NavLink>
-                  <NavLink to="pricing">Pricing</NavLink>
-                  <NavLink to="photos">Photos</NavLink>
-                </nav>
-                <Outlet context={{ vanDetail: vanDetail[0] }} />
-              </div>
-            );
-          }}
+          <RenderHostVanDetails />
         </Await>
-      </React.Suspense>
+      </Suspense>
     </section>
   );
 };
 export default HostVanDetails;
 
-/*   useEffect(() => {
-    fetch(`/api/host/vans/${name_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setVanDetail(
-          data.vans[0] ?? {
-            name: "",
-            description: "",
-            price: "",
-            imageUrl: "",
-            type: "",
-          }
-        );
-      });
-  }, [name_id]); */
 {
   /** by default Links are relative to the parent route Not the path in your browser
    *  if we wan't to back one level into the path we are in and not to the parent router

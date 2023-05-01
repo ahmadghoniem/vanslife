@@ -83,10 +83,10 @@ createServer({
   routes() {
     this.namespace = "api";
     this.logging = false;
-    this.timing = 500;
+    this.timing = 100;
+    this.passthrough("https://firestore.googleapis.com/**");
 
     this.get("/vans", (schema, request) => {
-      console.log(request);
       return schema.vans.all();
       // return new Response(400, {}, { error: "Error fetching data" });
     });
@@ -101,7 +101,7 @@ createServer({
       );
     });
 
-    this.get("/host/vans", (schema, request) => {
+    this.get("/host/vans", (schema) => {
       // Hard-code the hostId for now
 
       return schema.vans.where({ hostId: "123" });
@@ -165,3 +165,11 @@ createServer({
     */
   },
 });
+/* // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+ */

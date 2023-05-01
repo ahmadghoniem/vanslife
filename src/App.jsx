@@ -42,6 +42,7 @@ import {
 
 //Actions
 import { loginAction } from "./actions/loginAction";
+import { SkeletonTheme } from "react-loading-skeleton";
 {
   /**  createBrowserRouter
    * This is the recommended router for all React Router web projects. It uses the DOM History API to update the URL and manage the history stack.
@@ -66,49 +67,63 @@ const router = createBrowserRouter(
         <Route
           index
           Component={Vans}
+          loader={vansLoader}
           ErrorBoundary={ErrorElement}
           // this ErrorBoundary shall be rendered instead of the actual vans element
           // if any problem occured in rendering the vans element or with the loader
-          loader={vansLoader}
         />
         <Route
-          loader={VanDetailsLoader}
           path=":name_id"
           Component={VanDetail}
+          loader={VanDetailsLoader}
+          ErrorBoundary={ErrorElement}
         />
       </Route>
       <Route path="Host" loader={defaultLoader} Component={HostLayout}>
-        <Route index loader={defaultLoader} Component={Dashboard} />
+        <Route index /* loader={defaultLoader} */ Component={Dashboard} />
 
         <Route path="vans">
-          <Route index Component={HostVans} loader={HostVansLoader} />
+          <Route
+            index
+            Component={HostVans}
+            loader={HostVansLoader}
+            ErrorBoundary={ErrorElement}
+          />
           <Route
             path=":name_id"
             loader={HostVanDetailsLoader}
             Component={HostVanDetail}
+            ErrorBoundary={ErrorElement}
           >
-            <Route loader={defaultLoader} index Component={HostVanInfo} />
+            <Route /* loader={defaultLoader} */ index Component={HostVanInfo} />
             <Route
-              loader={defaultLoader}
+              /* loader={defaultLoader} */
               path="pricing"
               Component={HostVanPricing}
             />
             <Route
-              loader={defaultLoader}
+              /* loader={defaultLoader} */
               path="photos"
               Component={HostVanPhotos}
             />
           </Route>
         </Route>
-        <Route loader={defaultLoader} path="Income" Component={Income} />
-        <Route loader={defaultLoader} path="Reviews" Component={Reviews} />
+        <Route /* loader={defaultLoader} */ path="Income" Component={Income} />
+        <Route
+          /* loader={defaultLoader} */ path="Reviews"
+          Component={Reviews}
+        />
       </Route>
       <Route path="*" Component={NotFound} />
     </Route>
   )
 );
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <SkeletonTheme>
+      <RouterProvider router={router} />
+    </SkeletonTheme>
+  );
 };
 
 export default App;

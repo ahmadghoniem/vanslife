@@ -3,11 +3,11 @@
 // similar to the useParam hook
 
 import { defer } from "react-router-dom";
-import { getVans } from "../api";
+import { getVan } from "../api";
 import requireAuth from "../utils";
 
 const VanDetailsLoader = async ({ params: { name_id }, request }) => {
   await requireAuth(request);
-  return defer({ vanDetailsPromise: getVans(name_id) });
+  return defer({ vanDetailsPromise: getVan(name_id) });
 };
 export { VanDetailsLoader };

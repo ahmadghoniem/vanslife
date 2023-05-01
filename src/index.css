@@ -368,6 +368,7 @@ i[class*="van-type-"] {
   display: flex;
   flex-direction: column;
   color: #161616;
+  width: 100%;
 }
 .host-van-detail-info > h4 {
   font-weight: 700;
@@ -427,7 +428,7 @@ i[class*="van-type-"] {
 .host-van-tile a {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1rem;
   gap: 1.25rem;
   color: #161616;
   background-color: #fff;

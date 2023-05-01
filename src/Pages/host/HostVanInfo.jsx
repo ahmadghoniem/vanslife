@@ -1,22 +1,23 @@
 import React from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useOutletContext } from "react-router-dom";
 
 const HostVanInfo = () => {
-  const { vanDetail } = useOutletContext();
+  const {
+    vanDetail: { name = "", type = "", description = "" },
+  } = useOutletContext();
 
   return (
     <section className="host-van-detail-info">
+      <h4>Name: {name ? <span>{name}</span> : <Skeleton width="15%" />}</h4>
+      <h4>Category: {type ? <span>{type}</span> : <Skeleton width="15%" />}</h4>
       <h4>
-        Name: <span>{vanDetail.name}</span>
+        Description:
+        {type ? <span>{description}</span> : <Skeleton width="15%" />}
       </h4>
       <h4>
-        Category: <span>{vanDetail.type}</span>
-      </h4>
-      <h4>
-        Description: <span>{vanDetail.description}</span>
-      </h4>
-      <h4>
-        Visibility: <span>Public</span>
+        Visibility: {type ? <span>Public</span> : <Skeleton width="15%" />}
       </h4>
     </section>
   );
