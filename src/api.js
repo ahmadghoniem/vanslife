@@ -56,6 +56,27 @@ async function getHostVans() {
   }));
   return hostVansData;
 }
+
+const loginUser = async (creds) => {
+  const res = await fetch("/api/login", {
+    method: "post",
+    body: JSON.stringify(creds),
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw {
+      message: data.message,
+      statusText: res.statusText,
+      status: res.status,
+    };
+  }
+
+  return data;
+};
+
+export { getVans, getVan, getHostVans, loginUser };
+
 /* const getVans = async (name_id = "") => {
   const url = name_id ? `/api/vans/${name_id}` : "/api/vans";
   const res = await fetch(url);
@@ -84,22 +105,3 @@ async function getHostVans() {
   const data = await res.json();
   return data.vans;
 }; */
-const loginUser = async (creds) => {
-  const res = await fetch("/api/login", {
-    method: "post",
-    body: JSON.stringify(creds),
-  });
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw {
-      message: data.message,
-      statusText: res.statusText,
-      status: res.status,
-    };
-  }
-
-  return data;
-};
-
-export { getVans, getVan, getHostVans, loginUser };

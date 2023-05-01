@@ -27,7 +27,6 @@ import { VanDetail, Login, Vans } from "./pages/vans";
 import { ErrorElement, HostLayout, NotFound, Layout } from "./components";
 
 // utilities
-import requireAuth from "./utils";
 import "./server";
 
 // loaders

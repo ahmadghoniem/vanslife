@@ -45,7 +45,7 @@ export default function Login() {
       <h1>Sign in to your account</h1>
       {message && <h3>{message}</h3>}
       {errorMsg && <h3>{errorMsg}</h3>}
-      <Form repl ace className="login-form" method="post">
+      <Form replace className="login-form" method="post">
         <input name="email" type="email" placeholder="Email address" />
         <input name="password" type="password" placeholder="Password" />
 
