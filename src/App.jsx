@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 
 // pages
-import Home from "./pages/Homepage";
 import About from "./pages/About";
+import HomePage from "./pages/HomePage";
 // host page
 import {
   Dashboard,
@@ -22,7 +22,6 @@ import {
 } from "./pages/host";
 // vans page
 import { VanDetail, Login, Vans } from "./pages/vans";
-
 //components
 import { ErrorElement, HostLayout, NotFound, Layout } from "./components";
 
@@ -54,7 +53,7 @@ import { SkeletonTheme } from "react-loading-skeleton";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" Component={Layout}>
-      <Route index Component={Home} />
+      <Route index Component={HomePage} />
       <Route
         path="login"
         Component={Login}
