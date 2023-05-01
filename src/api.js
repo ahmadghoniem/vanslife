@@ -37,7 +37,7 @@ async function getVans() {
 
 async function getVan(name_id) {
   const lastDashIndex = name_id.lastIndexOf("-");
-  const name = name_id.slice(0, lastDashIndex).replace(/-/g, " "); // needs to be added as well
+  // const name = name_id.slice(0, lastDashIndex).replace(/-/g, " "); // needs to be added as well
   const id = name_id.slice(lastDashIndex + 1);
   const docRef = doc(db, "vans", id);
   const vanSnapshot = await getDoc(docRef);
